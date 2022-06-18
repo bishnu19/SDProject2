@@ -36,7 +36,7 @@ class TicTacToeActivity : AppCompatActivity(),View.OnClickListener {
 
     // TODO (suggested): cast the given view as a Button; disable the button so you don't forget; get the button's tag and use it to infer the player's move coordinates; make the move and update the button's text with the player's symbol; if the game is over, show results; otherwise, have the computer play; use TitTacToe's last move and "findViewWithTag" to get a reference to the button of the computer's play; disable the button so you don't forget; update the button's text with the computer's symbol; if the game is over, show results
     override fun onClick(view: View?) {
-        }
+        
     }
 
 
