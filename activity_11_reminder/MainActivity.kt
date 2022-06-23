@@ -24,7 +24,7 @@ class MainActivity : AppCompatActivity() {
         // TODO #2: set the button's listener to save the EditText's content to persistency file
         val btnSave: Button = findViewById(R.id.btnSave)
         btnSave.setOnClickListener {
-            
+
         }
     }
 }

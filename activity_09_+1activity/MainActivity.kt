@@ -13,9 +13,21 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         val btnGo: Button = findViewById(R.id.btnGo)
-        // TODO: write the code that starts a new activity depending on the radio button that was checked
         btnGo.setOnClickListener {
-            
+            val rgChoices: RadioGroup = findViewById(R.id.rgChoices)
+            val rbChecked: RadioButton = findViewById(rgChoices.checkedRadioButtonId)
+            val rbCorrect: RadioButton = findViewById(R.id.rbCorrect)
+            val intent = Intent(this, ResultActivity::class.java)
+            intent.putExtra("result", rbChecked == rbCorrect)
+            startActivity(intent)
+//            if  (rbChecked == rbCorrect) {
+//                val intent = Intent(this, CorrectActivity::class.java)
+//                startActivity(intent)
+//            }
+//            else {
+//                val intent = Intent(this, IncorrectActivity::class.java)
+//                startActivity(intent)
+//            }
         }
     }
 }
