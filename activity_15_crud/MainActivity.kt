@@ -1,12 +1,8 @@
 package edu.msudenver.crud
 
-import android.content.Context
 import android.content.Intent
-import android.database.sqlite.SQLiteDatabase
-import android.database.sqlite.SQLiteOpenHelper
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.PersistableBundle
 import android.view.*
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -30,7 +26,7 @@ class MainActivity : AppCompatActivity() {
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemHolder {
             val view = LayoutInflater.from(parent.context).inflate(R.layout.item_list, parent, false)
-            return ItemHolder(view)
+            return ItemHolder(view, )
         }
 
         override fun onBindViewHolder(holder: ItemHolder, position: Int) {
@@ -75,21 +71,23 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        // creates the recycler view
+        // creates and populates the recycler view
         dbHelper = DBHelper(this)
         recyclerView = findViewById<RecyclerView>(R.id.recyclerView)
         recyclerView.layoutManager = LinearLayoutManager(this)
         populateRecyclerView()
 
-        // floating action button initialization
+        // initializes the floating action button
         val fabCreate: FloatingActionButton = findViewById(R.id.fabCreate)
         fabCreate.setOnClickListener {
-            val intent = Intent(this, CreateActivity::class.java)
+            // calls CreateUpdateActivity for create
+            val intent = Intent(this, CreateUpdateActivity::class.java)
+            intent.putExtra("op", CreateUpdateActivity.CREATE_OP)
             startActivity(intent)
         }
     }
 
-    // this method is called when CreateActivity finishes
+    // this method is called when CreateUpdateActivity finishes
     override fun onResume() {
         super.onResume()
         populateRecyclerView()
@@ -104,5 +102,4 @@ class MainActivity : AppCompatActivity() {
         super.onRestoreInstanceState(savedInstanceState)
         dbHelper = if (savedInstanceState.containsKey("dbHelper")) savedInstanceState.getSerializable("dbHelper") as DBHelper else DBHelper(this)
     }
-
 }
