@@ -15,7 +15,7 @@ import java.lang.Exception
 
 
 // TODO #1: add the OnLongClickListener interface
-class MainActivity : AppCompatActivity(), View.OnClickListener, ... {
+class MainActivity : AppCompatActivity(), View.OnClickListener, View.OnLongClickListener {
 
     lateinit var recyclerView: RecyclerView
     lateinit var dbHelper: DBHelper
@@ -29,15 +29,10 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, ... {
 
     // creates the ItemAdapter inner class
     // TODO #2: add an OnLongClickListener parameter
-    private inner class ItemAdapter(var items: List<Item>, var onClickListener: View.OnClickListener, ...): RecyclerView.Adapter<ItemHolder>() {
+    private inner class ItemAdapter(var items: List<Item>, var onClickListener: View.OnClickListener, var onLongClickListener: View.OnLongClickListener): RecyclerView.Adapter<ItemHolder>() {
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemHolder {
             val view = LayoutInflater.from(parent.context).inflate(R.layout.item_list, parent, false)
-            // sets the holder's listener
-            view.setOnClickListener(onClickListener)
-
-            // TODO #3: set the holder's (long click) listener
-
             return ItemHolder(view)
         }
 
@@ -47,7 +42,11 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, ... {
             holder.txtItemCategory.text = item.categoryAsString()
             holder.txtItemQuantityAndUnit.text = item.quantity.toString() + " " + item.unit
 
-            
+            // sets the holder's listener
+            holder.itemView.setOnClickListener(onClickListener)
+
+            // TODO #3: set the holder's (long click) listener
+            holder.itemView.setOnLongClickListener(onLongClickListener)
         }
 
         override fun getItemCount(): Int {
