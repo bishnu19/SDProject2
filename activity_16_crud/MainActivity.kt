@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 // TODO #1: add the OnClickListener interface
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     lateinit var recyclerView: RecyclerView
     lateinit var dbHelper: DBHelper
@@ -24,12 +24,10 @@ class MainActivity : AppCompatActivity() {
 
     // creates the ItemAdapter inner class
     // TODO #2: add an OnClickListener parameter
-    private inner class ItemAdapter(var items: List<Item>, ...): RecyclerView.Adapter<ItemHolder>() {
+    private inner class ItemAdapter(var items: List<Item>, var onClickListener: View.OnClickListener): RecyclerView.Adapter<ItemHolder>() {
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemHolder {
             val view = LayoutInflater.from(parent.context).inflate(R.layout.item_list, parent, false)
-            // TODO #3: set the holder's listener
-
             return ItemHolder(view, )
         }
 
@@ -39,8 +37,8 @@ class MainActivity : AppCompatActivity() {
             holder.txtItemCategory.text = item.categoryAsString()
             holder.txtItemQuantityAndUnit.text = item.quantity.toString() + " " + item.unit
 
-            
-            
+            // TODO #3: set the holder's listener
+            holder.itemView.setOnClickListener(onClickListener)
         }
 
         override fun getItemCount(): Int {
@@ -112,6 +110,12 @@ class MainActivity : AppCompatActivity() {
 
     // TODO #4: calls CreateUpdateActivity for update
     override fun onClick(view: View?) {
-        
+        if (view != null) {
+            val name = view.findViewById<TextView>(R.id.txtItemName).text
+            val intent = Intent(this, CreateUpdateActivity::class.java)
+            intent.putExtra("op", CreateUpdateActivity.UPDATE_OP)
+            intent.putExtra("name", name)
+            startActivity(intent)
+        }
     }
 }

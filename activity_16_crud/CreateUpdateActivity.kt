@@ -60,7 +60,14 @@ class CreateUpdateActivity: AppCompatActivity(), View.OnClickListener {
             btnCreateUpdate.text = "CREATE"
         // TODO #5: write the code for the "update" operation
         else {
-            ...
+            btnCreateUpdate.text = "UPDATE"
+            val name = intent.getStringExtra("name") ?: ""
+            edtName.setText(name)
+            edtName.isEnabled = false
+            val item = retrieveItem(name)
+            spnCategory.setSelection(item.category)
+            edtQuantity.setText(item.quantity.toString())
+            edtUnit.setText(item.unit)
         }
     }
 
@@ -113,7 +120,29 @@ class CreateUpdateActivity: AppCompatActivity(), View.OnClickListener {
         }
         // TODO #6: write the code for the "update" operation
         else {
-            ...
+            try {
+                db.execSQL(
+                    """
+                        UPDATE items SET
+                            category = ${category},
+                            quantity = ${quantity}, 
+                            unit = "${unit}" 
+                        WHERE name = "${name}"
+                    """
+                )
+                Toast.makeText(
+                    this,
+                    "Shopping list item successfully updated!",
+                    Toast.LENGTH_SHORT
+                ).show()
+            } catch (ex: Exception) {
+                print(ex.toString())
+                Toast.makeText(
+                    this,
+                    "Exception when trying to update the shopping list item!",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
         }
         finish()
     }
