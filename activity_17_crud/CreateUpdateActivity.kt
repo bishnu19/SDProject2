@@ -1,4 +1,4 @@
-package edu.msudenver.crud
+package edu.msudenver.shoppinglist
 
 import android.database.sqlite.SQLiteDatabase
 import androidx.appcompat.app.AppCompatActivity
@@ -11,7 +11,6 @@ import java.lang.Exception
 class CreateUpdateActivity: AppCompatActivity(), View.OnClickListener {
 
     var op = CREATE_OP
-    var category = 0
     lateinit var db: SQLiteDatabase
     lateinit var edtName: EditText
     lateinit var edtQuantity: EditText
@@ -34,17 +33,6 @@ class CreateUpdateActivity: AppCompatActivity(), View.OnClickListener {
 
         // defines the spinner's adapter as an ArrayAdapter of String
         spnCategory.adapter = ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, Item.CATEGORY_DESCRIPTIONS)
-
-        // sets the "onItemSelectedListener" for the spinner, saving the category (id) of the item when the spinner changes
-        spnCategory.onItemSelectedListener = object: AdapterView.OnItemSelectedListener {
-            override fun onNothingSelected(parent: AdapterView<*>?) {
-
-            }
-
-            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                category = position
-            }
-        }
 
         // gets a reference to the "CREATE/UPDATE" button and sets its listener
         val btnCreateUpdate: Button = findViewById(R.id.btnCreateUpdate)
@@ -96,6 +84,7 @@ class CreateUpdateActivity: AppCompatActivity(), View.OnClickListener {
         val name = findViewById<EditText>(R.id.edtName).text.toString()
         val quantity = findViewById<EditText>(R.id.edtQuantity).text.toString().toInt()
         val unit = findViewById<EditText>(R.id.edtUnit).text.toString()
+        val category = findViewById<Spinner>(R.id.spnCategory).selectedItemPosition
         if (op == CREATE_OP) {
             try {
                 db.execSQL(
