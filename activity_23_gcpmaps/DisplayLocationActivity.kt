@@ -25,7 +25,25 @@ class DisplayLocationActivity : AppCompatActivity() {
 
     // TODO #8: implement the function
     fun retrieveLocation(id: Int): Location {
-        
+        val cursor = db.query(
+            "locations",
+            arrayOf<String>("rowid, description, visited_date, latitude, longitude"),
+            "rowid = ${id}",
+            null,
+            null,
+            null,
+            null
+        )
+        with (cursor) {
+            cursor.moveToNext()
+            val id = getInt(0)
+            val description = getString(1)
+            val visitedDate = DBHelper.ISO_FORMAT.parse(getString(2))
+            val latitude = getDouble(3)
+            val longitude = getDouble(4)
+            val location = Location(id, description, visitedDate, latitude, longitude)
+            return location
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,6 +56,10 @@ class DisplayLocationActivity : AppCompatActivity() {
         val location = retrieveLocation(id)
 
         // TODO #9: update the image view with the result of google maps
-        
+        val key = getString(R.string.GCP_MAPS_KEY)
+        val markers = "${location.latitude},${location.longitude}"
+        val urlString = BASE_URL + "?key=${key}&zoom=${ZOOM}&size=${SIZE}&markers=${markers}"
+        imgMap = findViewById(R.id.imgMap)
+        Picasso.with(this).load(urlString).into(imgMap)
     }
 }
