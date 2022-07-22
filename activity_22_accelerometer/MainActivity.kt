@@ -23,10 +23,13 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
         txtZ = findViewById(R.id.txtZ)
 
         // TODO: get a reference to the sensor manager
+        sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
 
         // TODO: get a reference to the accelerometer sensor
+        accel = sensorManager?.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
 
         // TODO: register the sensor event listener
+        sensorManager?.registerListener(this, accel, SensorManager.SENSOR_DELAY_NORMAL)
     }
 
     override fun onSensorChanged(event: SensorEvent?) {
