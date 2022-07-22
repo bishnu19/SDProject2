@@ -50,7 +50,7 @@ class GameActivity : AppCompatActivity(), OnColorMatchListener {
         // TODO #12: set onClickListener for the YES button and have it call ColorMatch's checkAnswer passing true
 
 
-        // TODO #12: set onClickListener for the NOT button and have it call ColorMatch's checkAnswer passing false
+        // TODO #13: set onClickListener for the NOT button and have it call ColorMatch's checkAnswer passing false
 
     }
 
@@ -87,7 +87,7 @@ class GameActivity : AppCompatActivity(), OnColorMatchListener {
         }
     }
 
-    // TODO #13: update the views (buttons meaning and color)
+    // TODO #14: update the views (buttons meaning and color)
     // use setTextColor to change a button's color
     // remember, a challenge is a pair containing the meaning and the color
     // the meaning is a pair with the name of a color (text) and how it should be displayed (color)
@@ -101,11 +101,11 @@ class GameActivity : AppCompatActivity(), OnColorMatchListener {
         
     }
 
-    // TODO #14: update the view (tick text)
+    // TODO #15: update the view (tick text)
     override fun onColorMatchTick(secondsLeft: Int) {
     }
 
-    // TODO #15: update the database with the score; call finish to resume to main activity
+    // TODO #16: update the database with the score; call finish to resume to main activity
     override fun onColorMatchGameOver(score: Double) {
         try {
             
