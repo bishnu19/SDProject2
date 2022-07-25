@@ -10,6 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="300dp"
         android:textSize="20dp"
+        android:text="39.75,-105\n"
         android:scrollbars="vertical"
         android:id="@+id/txtLocations"/>
 
